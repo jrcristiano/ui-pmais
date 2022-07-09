@@ -19,9 +19,13 @@ a {
   border-right: 0px;
 }
 
+.container {
+  padding: 0 2rem;
+}
+
 .button-rounded {
   border-radius: 64px;
-  width: 135px;
+  padding: 0 24px;
 }
 
 .borderTopYellow {
