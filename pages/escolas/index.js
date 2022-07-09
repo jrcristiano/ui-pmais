@@ -24,6 +24,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 export default function Escolas() {
   const [age, setAge] = React.useState('');
 
@@ -79,7 +85,6 @@ export default function Escolas() {
     createData('SF', 3560, '0016g00000BIRbpAAH', 'Escola de exemplo 5', 'João Pessoa', 'EFAF, EI, PV', 'Ativo'),
     createData('SF', 2160, '0013g00000AFKbaANM', 'Escola de exemplo 6', 'Campos dos Goytacazes', 'EFAF, EI, PV', 'Ativo'),
     createData('SF', 6816, '0013g00000ASKNyALS', 'Escola de exemplo 7', 'Resende', 'EFAF, EI, PV', 'Inativo'),
-    createData('SF', 6816, '0019d00000ERdNyADQ', 'Escola de exemplo 8', 'Rio de Janeiro', 'PV', 'Ativo'),
   ];
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -242,6 +247,19 @@ export default function Escolas() {
               </TableBody>
             </Table>
           </TableContainer>
+          <Box fullWidth style={{display: 'flex', justifyContent: 'flex-end' }}>
+            <Stack spacing={2} paddingTop={3}>
+              <Pagination
+                count={10}
+                renderItem={(item) => (
+                  <PaginationItem
+                    components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                    {...item}
+                  />
+                )}
+                />
+            </Stack>
+          </Box>
         </Box>
       </div>
     </>
