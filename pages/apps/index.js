@@ -2,7 +2,6 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
 import CardApp from './../../components/cardApp';
 
 import AvaCover from './../../public/apps/ava.png';
@@ -17,6 +16,9 @@ import LivroDigitalCover from './../../public/apps/livro-digital.png';
 import MatrizBnccCover from './../../public/apps/matriz-bncc.png';
 import MktCover from './../../public/apps/mkt-365.png';
 import PortalEdrosCover from './../../public/apps/portal-edros.png';
+
+// css
+import styles from '../../styles/Apps.module.css';
 
 export default function Home() {
   const apps = [
@@ -78,7 +80,7 @@ export default function Home() {
       </Head>
       <div>
         <Typography
-          style={{fontWeight: 'bold', paddingBottom: 15}}
+          className="titleMain"
           variant="h5"
           color="#323232"
           noWrap

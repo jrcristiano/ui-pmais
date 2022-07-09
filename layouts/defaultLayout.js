@@ -50,10 +50,50 @@ function DefaultLayout(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const pathEqualsLink = (link) => router.asPath === link;
+  const activeLink = (link) => {
+    return router.pathname.startsWith(link)
+  }
+
+  const apps = [
+    {
+      icon: <Apps />,
+      text: 'Aplicativos',
+      link: '/apps'
+    },
+    {
+      icon: <Apartament />,
+      text: 'Escolas',
+      link: '/escolas'
+    },
+    {
+      icon: <School />,
+      text: 'Usuários Escolas',
+      link: '/usuarios-escolas'
+    },
+    {
+      icon: <Groups />,
+      text: 'Usuários Poliedro',
+      link: '/usuarios-poliedro'
+    },
+    {
+      icon: <AdminPanelSettings />,
+      text: 'Perfis',
+      link: '/perfis'
+    },
+    {
+      icon: <TouchApp />,
+      text: 'Recursos',
+      link: '/recursos'
+    },
+    {
+      icon: <ReceiptLong />,
+      text: 'Termos de uso',
+      link: '/termos-de-uso'
+    },
+  ];
 
   const drawer = (
-    <div style={{ borderTop: '8px solid #FAA41F' }}>
+    <div className="appBar borderTopYellow">
       <Toolbar>
         <Image src={PmaisLogo} />
         <Typography
@@ -71,46 +111,10 @@ function DefaultLayout(props) {
         paddingLeft: 8,
         paddingRight: 8
       }}>
-        {[
-          {
-            icon: <Apps />,
-            text: 'Aplicativos',
-            link: '/apps'
-          },
-          {
-            icon: <Apartament />,
-            text: 'Escolas',
-            link: '/escolas'
-          },
-          {
-            icon: <School />,
-            text: 'Usuários Escolas',
-            link: '/usuarios-escolas'
-          },
-          {
-            icon: <Groups />,
-            text: 'Usuários Poliedro',
-            link: '/usuarios-poliedro'
-          },
-          {
-            icon: <AdminPanelSettings />,
-            text: 'Perfis',
-            link: '/perfis'
-          },
-          {
-            icon: <TouchApp />,
-            text: 'Recursos',
-            link: '/recursos'
-          },
-          {
-            icon: <ReceiptLong />,
-            text: 'Termos de uso',
-            link: '/termos-de-uso'
-          },
-        ].map(({icon, text, link}) => (
+        {apps.map(({icon, text, link}) => (
           <ListItem
             onClick={handleDrawerToggle}
-            style={pathEqualsLink(link) ? {
+            style={activeLink(link) ? {
               background: '#1B458D',
               color: '#FFF',
               marginBottom: 5,
@@ -120,12 +124,12 @@ function DefaultLayout(props) {
             disablePadding>
             <ListItemButton>
               <ListItemIcon
-                style={pathEqualsLink(link) ? {color: '#FFF'} : {color: '#1B458D' }}>
+                style={activeLink(link) ? {color: '#FFF'} : {color: '#1B458D' }}>
                 {icon}
               </ListItemIcon>
               <Link href={{pathname: link}}>
                 <ListItemText
-                    style={pathEqualsLink(link) ? {color: '#FFF'} : {color: '#323232'}}
+                    style={activeLink(link) ? {color: '#FFF'} : {color: '#323232'}}
                     primary={text} />
               </Link>
             </ListItemButton>
@@ -151,11 +155,8 @@ function DefaultLayout(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar style={{
-        backgroundColor: '#fff',
-        borderBottom: '1px solid #E3E3E3',
-        borderTop: '8px solid #FAA41F'
-      }}
+      <AppBar className="borderTopYellow appBar"
+        style={{borderBottom: '1px solid #E3E3E3'}}
         elevation={0}
         position="fixed"
         sx={{
@@ -163,10 +164,10 @@ function DefaultLayout(props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Toolbar className="toolbar">
           <Toolbar>
             <IconButton
-              style={{color: '#323232'}}
+              className="iconButton"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
@@ -174,9 +175,7 @@ function DefaultLayout(props) {
             >
               <MenuIcon />
               <Typography
-                style={{
-                  fontWeight: 'bold',
-                }}
+                className="fontBold"
                 color="#323232"
                 variant='h6'>
                   Pmais
@@ -195,7 +194,7 @@ function DefaultLayout(props) {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Avatar style={{backgroundColor: '#1B458D'}} sx={{ width: 32, height: 32 }} />
+                <Avatar className="background-blue" sx={{ width: 32, height: 32 }} />
               </IconButton>
           </Tooltip>
         </Box>
