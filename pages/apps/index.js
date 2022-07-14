@@ -16,6 +16,8 @@ import LivroDigitalCover from './../../public/apps/livro-digital.png';
 import MatrizBnccCover from './../../public/apps/matriz-bncc.png';
 import MktCover from './../../public/apps/mkt-365.png';
 import PortalEdrosCover from './../../public/apps/portal-edros.png';
+import MinhasAvaliacoesCover from './../../public/apps/minhas-avaliacoes.png';
+import PmaisRedacaoCover from './../../public/apps/redacao.png';
 
 // css
 import styles from '../../styles/Apps.module.css';
@@ -69,13 +71,21 @@ export default function Home() {
     {
       name: 'Portal edros',
       image: PortalEdrosCover
-    }
+    },
+    {
+      name: 'Minhas avaliações',
+      image: MinhasAvaliacoesCover,
+    },
+    {
+      name: 'P+ redação',
+      image: PmaisRedacaoCover,
+    },
   ];
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Pmais · apps</title>
+        <title>Aplicativos</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
@@ -87,7 +97,7 @@ export default function Home() {
           component="div">
               Aplicativos
         </Typography>
-        <Grid container  spacing={3}>
+        <Grid container spacing={4}>
             {apps.map((app, index) => (
               <Grid
                 item
