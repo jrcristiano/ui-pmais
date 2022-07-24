@@ -107,7 +107,7 @@ export default function Home() {
                   md={12}
                   lg={4}
                   key={index}>
-                  <CardApp name={app.name} image={app.image} />
+                  <CardApp className={styles.cardApp} name={app.name} image={app.image} />
                 </Grid>
               </Link>
             ))}

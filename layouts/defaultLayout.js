@@ -215,9 +215,9 @@ export default function PersistentDrawerLeft({ children }) {
             style={activeLink(link) ? {
               background: '#1B458D',
               color: '#FFF',
-              marginBottom: 5,
+              marginBottom: 6,
               borderRadius: '6px'
-            } : {marginBottom: 5}}
+            } : {marginBottom: 6}}
             key={text}
             disablePadding>
             <ListItemButton>

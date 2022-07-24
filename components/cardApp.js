@@ -15,7 +15,7 @@ import Launch from '@mui/icons-material/Launch';
 
 export default function CardApp(props) {
   return (
-    <Card className="cursor-pointer" sx={{
+    <Card className="cursor-pointer" style={{}} sx={{
       display: 'flex',
       boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)'
     }}>
