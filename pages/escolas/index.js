@@ -107,23 +107,25 @@ export default function index() {
       </Head>
 
       <div className="container">
-        <div className="justify-content-between">
-          <Typography
-            className="titleMain"
-            variant="h5"
-            color="#323232"
-            noWrap
-            component="div">
-              Escolas
-          </Typography>
+        <div className="justify-content-between flex-wrap">
+          <div className="sm-w-100">
+            <Typography
+              className="titleMain"
+              variant="h5"
+              color="#323232"
+              noWrap
+              component="div">
+                Escolas
+            </Typography>
+          </div>
           <div>
-            <Button style={{marginRight: 10}} className="background-blue button-rounded" variant="contained">
+            <Button style={{marginRight: 10}} className={`background-blue button-rounded`} variant="contained">
               Gerar CSV
             </Button>
-            <Button className="background-blue button-rounded" variant="contained">
+            <Button className={`background-blue button-rounded`} variant="contained">
               <AddIcon /> Nova escola
             </Button>
-         </div>
+          </div>
         </div>
 
         <Box sx={{ paddingY: 3 }}>

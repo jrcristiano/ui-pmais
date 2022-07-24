@@ -2,6 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Head from 'next/head';
+import Link from 'next/link';
 import CardApp from './../../components/cardApp';
 
 import AvaCover from './../../public/apps/ava.png';
@@ -89,24 +90,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Typography
+        <Typography style={{ paddingTop: 0 }}
           className="titleMain"
           variant="h5"
           color="#323232"
           noWrap
           component="div">
-              Aplicativos
+            Aplicativos
         </Typography>
         <Grid container spacing={4}>
-            {apps.map((app, index) => (
-              <Grid
-                item
-                xs={12}
-                md={12}
-                lg={4}
-                key={index}>
-                <CardApp name={app.name} image={app.image} />
-              </Grid>
+          {apps.map((app, index) => (
+              <Link href="https://google.com">
+                <Grid
+                  item
+                  xs={12}
+                  md={12}
+                  lg={4}
+                  key={index}>
+                  <CardApp name={app.name} image={app.image} />
+                </Grid>
+              </Link>
             ))}
         </Grid>
       </div>

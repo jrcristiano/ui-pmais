@@ -1,22 +1,27 @@
-// components
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import PmaisLogo from './../public/pmais-logo.png';
-import Link from 'next/link';
 
 // icons
 import Avatar from '@mui/material/Avatar';
@@ -26,7 +31,6 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import IconButton from '@mui/material/IconButton';
 import Apps from '@mui/icons-material/Apps';
 import School from '@mui/icons-material/School';
 import Apartament from '@mui/icons-material/Apartment';
@@ -35,19 +39,67 @@ import AdminPanelSettings from '@mui/icons-material/AdminPanelSettings';
 import TouchApp from '@mui/icons-material/TouchApp';
 import ReceiptLong from '@mui/icons-material/ReceiptLong';
 
-// hooks
-import { useRouter } from 'next/router'
 
-const drawerWidth = 250;
+const drawerWidth = 240;
 
-function DefaultLayout(props) {
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }),
+);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+  borderTop: '6px solid #FAA41F',
+}));
+
+export default function PersistentDrawerLeft({ children }) {
   const router = useRouter();
 
-  const { window, children } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(true);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
   const activeLink = (link) => {
@@ -92,28 +144,74 @@ function DefaultLayout(props) {
     },
   ];
 
-  const drawer = (
-    <div className="appBar borderTopYellow">
-      <Toolbar>
-        <Image src={PmaisLogo} />
-        <Typography
-          style={{
-            fontWeight: 'bold',
-            marginLeft: '10px'
-          }}
-          color="#323232"
-          variant='h6'>
-            Pmais
-        </Typography>
-      </Toolbar>
-      <Divider />
-      <List style={{
-        paddingLeft: 8,
-        paddingRight: 8
-      }}>
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar className="appBar borderTopYellow"
+        elevation={0}
+        position="fixed"
+        open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton>
+          {!open && (
+            <>
+              <Image src={PmaisLogo} />
+              <Typography
+                style={{
+                  fontWeight: 'bold',
+                  marginLeft: '10px',
+                }}
+                color="#323232"
+                variant='h6'>
+                  Pmais
+              </Typography>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader style={{display: 'flex', justifyContent: 'space-between' }}>
+          <Image src={PmaisLogo} />
+          <Typography
+            style={{
+              fontWeight: 'bold',
+              marginLeft: '10px',
+            }}
+            color="#323232"
+            variant='h6'>
+              Pmais
+          </Typography>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <List style={{
+          paddingLeft: 8,
+          paddingRight: 8,
+          paddingTop: 20
+        }}>
         {apps.map(({icon, text, link}) => (
           <ListItem
-            onClick={handleDrawerToggle}
             style={activeLink(link) ? {
               background: '#1B458D',
               color: '#FFF',
@@ -124,7 +222,7 @@ function DefaultLayout(props) {
             disablePadding>
             <ListItemButton>
               <ListItemIcon
-                style={activeLink(link) ? {color: '#FFF'} : {color: '#1B458D' }}>
+                style={activeLink(link) ? {color: '#FFF'} : {color: '#1B458D'}}>
                 {icon}
               </ListItemIcon>
               <Link href={{pathname: link}}>
@@ -136,174 +234,11 @@ function DefaultLayout(props) {
           </ListItem>
         ))}
       </List>
-    </div>
-  );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar className="borderTopYellow appBar"
-        style={{borderBottom: '1px solid #E3E3E3'}}
-        elevation={0}
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar className="toolbar">
-          <Toolbar>
-            <IconButton
-              className="iconButton"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 0, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-              <Typography
-                className="fontBold"
-                color="#323232"
-                variant='h6'>
-                  Pmais
-              </Typography>
-            </IconButton>
-          </Toolbar>
-          
-          <Box sx={{ display: 'flex' }}>
-            <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-            <Typography sx={{ minWidth: 100 }}>Profile</Typography>
-            <Tooltip title="Cristiano Junior">
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-              >
-                <Avatar className="background-blue" sx={{ width: 32, height: 32 }} />
-              </IconButton>
-          </Tooltip>
-        </Box>
-          
-      <Menu anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
-        </Toolbar>
-      </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-      >
-        <Toolbar />
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
         {children}
-      </Box>
+      </Main>
     </Box>
   );
 }
-
-DefaultLayout.propTypes = {
-  window: PropTypes.func,
-};
-
-export default DefaultLayout;

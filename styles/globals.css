@@ -11,9 +11,6 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 .MuiPaper-root {
   border-right: 0px;
@@ -34,6 +31,7 @@ a {
 
 .appBar {
   background-color: #fff;
+  color: #333333;
 }
 
 .toolbar {
@@ -121,6 +119,20 @@ a {
   justify-content: space-between;
 }
 
+.justify-content-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .d-flex {
   display: flex;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.w-100 {
+  width: 100%;
 }
