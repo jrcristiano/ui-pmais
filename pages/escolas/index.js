@@ -1,8 +1,4 @@
-import { Badge, Box, Button, Grid, InputAdornment, TextField, Typography } from '@mui/material';
-import Head from 'next/head';
-import Link from 'next/link';
-
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +7,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+
+import { Badge, Box, Button, Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import Head from 'next/head';
+import Link from 'next/link';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -224,7 +224,6 @@ export default function index() {
             </div>
           </div>
         </Box>
-
         <Box style={{ borderTop: '2px solid #DCDCDD' }} sx={{ paddingTop: 3 }}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
